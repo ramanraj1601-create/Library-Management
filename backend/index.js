@@ -14,14 +14,17 @@ const home = require("./routes/home.js")
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://library-management-self-iota.vercel.app/",
-  "https://library-management-yaen.vercel.app/"
+  "https://library-management-self-iota.vercel.app",
+  "https://library-management-yaen.vercel.app",
+  "https://library-management-7y9eezcwj-raman-guptas-projects-8c143760.vercel.app",
 ];
+
+const normalizeOrigin = (origin) => origin?.replace(/\/$/, "");
 
 app.use(express.json()); // Parse JSON
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));

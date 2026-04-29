@@ -1,0 +1,22 @@
+/* login.css inherits many styles from register.css via auth-page-container */
+
+.forgot-btn-v3 {
+  background: transparent;
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  text-align: right;
+  transition: var(--transition);
+}
+
+.forgot-btn-v3:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.auth-options {
+  margin-bottom: 20px;
+}

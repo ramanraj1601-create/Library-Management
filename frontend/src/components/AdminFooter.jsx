@@ -12,6 +12,9 @@ import {
 } from 'react-icons/fi';
 import './footer.css';
 
+
+
+
 const AdminFooter = () => {
   
   const handleLinkClick = () => {

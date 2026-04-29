@@ -14,7 +14,7 @@ const home = require("./routes/home.js")
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://library-management-app-karan.vercel.app",
+  "https://library-management-self-iota.vercel.app/",
 ];
 
 app.use(express.json()); // Parse JSON
@@ -61,4 +61,4 @@ mongoose.connect(uri)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+});

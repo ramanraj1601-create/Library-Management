@@ -15,6 +15,7 @@ const home = require("./routes/home.js")
 const allowedOrigins = [
   "http://localhost:5173",
   "https://library-management-self-iota.vercel.app/",
+  "https://library-management-yaen.vercel.app/"
 ];
 
 app.use(express.json()); // Parse JSON

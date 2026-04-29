@@ -34,7 +34,7 @@ export default function Navbar() {
           <div className="logo-icon">
             <FiBook />
           </div>
-          <span className="logo-text">AGC<span>Library</span></span>
+          <span className="logo-text">Raman <span>Library</span></span>
         </Link>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
@@ -92,4 +92,4 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+}

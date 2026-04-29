@@ -1,21 +1,28 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { FiUser, FiMail, FiLock, FiBookOpen, FiCalendar } from "react-icons/fi";
+import { motion } from "framer-motion";
 import { Server_URL } from "../../utils/config";
 import { showErrorToast, showSuccessToast } from "../../utils/toasthelper";
-import { FiUser, FiMail, FiLock, FiBookOpen, FiCalendar, FiShield } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import "./register.css";
 
 export default function Register() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(`${Server_URL}users/register`, data);
+      await axios.post(`${Server_URL}users/register`, data);
       showSuccessToast("Registration Successful!");
       reset();
+      navigate("/login");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       showErrorToast(error.response?.data?.message || "Registration Failed!");
@@ -26,7 +33,7 @@ export default function Register() {
     <div className="auth-page-container">
       <div className="auth-bg-glow"></div>
       <div className="container">
-        <motion.div 
+        <motion.div
           className="auth-wrapper glass"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -37,7 +44,7 @@ export default function Register() {
               <FiBookOpen />
             </div>
             <h2>Create Account</h2>
-            <p>Join the AGC Library community today.</p>
+            <p>Join the Raman Library community today.</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="premium-form">
@@ -55,7 +62,14 @@ export default function Register() {
                 <label><FiMail /> Email Address</label>
                 <div className="input-wrapper-v3">
                   <FiMail className="input-icon" />
-                  <input type="email" placeholder="john@example.com" {...register("email", { required: "Email is required" })} />
+                  <input
+                    type="email"
+                    placeholder="john@example.com"
+                    {...register("email", {
+                      required: "Email is required",
+                      setValueAs: (value) => value.trim().toLowerCase(),
+                    })}
+                  />
                 </div>
                 {errors.email && <span className="error-v3">{errors.email.message}</span>}
               </div>
@@ -64,22 +78,16 @@ export default function Register() {
                 <label><FiLock /> Password</label>
                 <div className="input-wrapper-v3">
                   <FiLock className="input-icon" />
-                  <input type="password" placeholder="••••••••" {...register("password", { required: "Password is required", minLength: { value: 6, message: "Min 6 characters" } })} />
+                  <input
+                    type="password"
+                    placeholder="Enter password"
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: { value: 6, message: "Min 6 characters" },
+                    })}
+                  />
                 </div>
                 {errors.password && <span className="error-v3">{errors.password.message}</span>}
-              </div>
-
-              <div className="input-group-v3">
-                <label><FiShield /> Select Role</label>
-                <div className="input-wrapper-v3">
-                  <FiShield className="input-icon" />
-                  <select {...register("role", { required: "Role is required" })}>
-                    <option value="user">Student / User</option>
-                    <option value="librarian">Librarian</option>
-                    <option value="admin">Administrator</option>
-                  </select>
-                </div>
-                {errors.role && <span className="error-v3">{errors.role.message}</span>}
               </div>
 
               <div className="input-group-v3">
@@ -101,8 +109,8 @@ export default function Register() {
               </div>
             </div>
 
-            <button type="submit" className="btn-premium w-100 mt-30">
-              Register Account
+            <button type="submit" className="btn-premium w-100 mt-30" disabled={isSubmitting}>
+              {isSubmitting ? "Creating Account..." : "Register Account"}
             </button>
           </form>
 

@@ -49,15 +49,12 @@ function BookDetails() {
     // }
     async function issueBook(bookid) {
         try {
-          console.log("bookId");
-            console.log(bookid);
+          setIsIssuing(true);
           const authToken = localStorage.getItem("authToken");
-          console.log(authToken)
           if (!authToken) {
             showErrorToast("Please login to issue a book.");
             return;
         }
-           const url =Server_URL + 'borrow/request-issue/'+bookid;
            const response = await axios.post(`${Server_URL}books/borrow/request-issue/${bookid}`,{}, {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -76,7 +73,8 @@ function BookDetails() {
         } catch (error) {
           // console.error("Error:", error.response?.data || error.message);
           showErrorToast(error.response?.data?.message || "Something went wrong! Please try again.");
-          
+        } finally {
+          setIsIssuing(false);
         }    
       }
 

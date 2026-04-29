@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FiEdit, FiTrash2, FiPlus, FiSearch, FiBook, FiInfo, FiHash, FiTag, FiDollarSign } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiPlus, FiSearch, FiBook, FiInfo, FiHash, FiTag, FiDollarSign, FiGrid, FiUser, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { Server_URL } from "../../utils/config";
 import { showErrorToast, showSuccessToast } from "../../utils/toasthelper";

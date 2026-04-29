@@ -14,24 +14,42 @@ const home = require("./routes/home.js")
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
   "https://library-management-self-iota.vercel.app",
   "https://library-management-yaen.vercel.app",
   "https://library-management-7y9eezcwj-raman-guptas-projects-8c143760.vercel.app",
+  ...(process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(",") : []),
 ];
 
-const normalizeOrigin = (origin) => origin?.replace(/\/$/, "");
+const normalizeOrigin = (origin = "") => origin.trim().replace(/\/$/, "");
 
-app.use(express.json()); // Parse JSON
-app.use(cors({
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+
+  const normalizedOrigin = normalizeOrigin(origin);
+  const isListedOrigin = allowedOrigins.map(normalizeOrigin).includes(normalizedOrigin);
+  const isProjectVercelPreview = /^https:\/\/library-management-[a-z0-9-]+\.vercel\.app$/.test(normalizedOrigin);
+
+  return isListedOrigin || isProjectVercelPreview;
+};
+
+const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
+    if (isAllowedOrigin(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     }
   },
   credentials: true,
-}));
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  optionsSuccessStatus: 204,
+};
+
+app.use(express.json()); // Parse JSON
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use("/users",users);
 app.use("/books",books);
 app.use("/admin",admin);

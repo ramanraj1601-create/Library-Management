@@ -1,13 +1,18 @@
 const  {UserModel} = require("../model/UserModel");
 const bcrypt = require("bcryptjs");
-const JWT_SECRET = "12345@abcd12";
+const JWT_SECRET = process.env.JWT_SECRET || "12345@abcd12";
 const jwt = require("jsonwebtoken");
 const adminController = {};
 
 adminController.addLibrarian = async (req, res) => {
     try {
-        const { name, email, password,role } = req.body;
-        const existingUser = await UserModel.findOne({ email });
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+        const existingUser = await UserModel.findOne({ email: normalizedEmail });
         if (existingUser) {
             return res.status(400).json({ message: "Email already exists" });
         }
@@ -15,10 +20,10 @@ adminController.addLibrarian = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = new UserModel({
-            name,
-      email,
-      password: hashedPassword,
-      role
+            name: name.trim(),
+            email: normalizedEmail,
+            password: hashedPassword,
+            role: "librarian"
         });
 // console.log(user);
         await user.save();
@@ -34,15 +39,11 @@ adminController.login = async (req,res)=>{
 
     try {
         const {email,password} = req.body;
-        // console.log("email,password");
-        console.log(email,password);
-        // const email="abc@gmail.com";
-        // const password="123";
-        const user = await UserModel.findOne({ email });
-        // console.log("user");
-        // console.log(user);
-        // console.log("print")
-        // console.log(user);
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
+
+        const user = await UserModel.findOne({ email: email.trim().toLowerCase() });
         if (!user) {
             return res.status(400).json({ message: "Invalid email or password" });
           }

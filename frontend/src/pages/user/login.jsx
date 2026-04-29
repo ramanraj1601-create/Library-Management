@@ -4,12 +4,13 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { FiMail, FiLock, FiBookOpen, FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
-import "./login.css"; 
 import { Server_URL } from "../../utils/config";
 import { showErrorToast, showSuccessToast } from "../../utils/toasthelper";
+import "./register.css";
+import "./login.css";
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -37,12 +38,11 @@ export default function Login() {
     <div className="auth-page-container">
       <div className="auth-bg-glow"></div>
       <div className="container">
-        <motion.div 
-          className="auth-wrapper glass"
+        <motion.div
+          className="auth-wrapper auth-wrapper-login glass"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          style={{ maxWidth: '450px' }}
         >
           <div className="auth-header">
             <div className="auth-logo">
@@ -57,7 +57,14 @@ export default function Login() {
               <label><FiMail /> Email Address</label>
               <div className="input-wrapper-v3">
                 <FiMail className="input-icon" />
-                <input type="email" placeholder="john@example.com" {...register("email", { required: "Email is required" })} />
+                <input
+                  type="email"
+                  placeholder="john@example.com"
+                  {...register("email", {
+                    required: "Email is required",
+                    setValueAs: (value) => value.trim().toLowerCase(),
+                  })}
+                />
               </div>
               {errors.email && <span className="error-v3">{errors.email.message}</span>}
             </div>
@@ -66,7 +73,7 @@ export default function Login() {
               <label><FiLock /> Password</label>
               <div className="input-wrapper-v3">
                 <FiLock className="input-icon" />
-                <input type="password" placeholder="••••••••" {...register("password", { required: "Password is required" })} />
+                <input type="password" placeholder="Enter password" {...register("password", { required: "Password is required" })} />
               </div>
               {errors.password && <span className="error-v3">{errors.password.message}</span>}
             </div>
@@ -77,8 +84,8 @@ export default function Login() {
               </button>
             </div>
 
-            <button type="submit" className="btn-premium w-100 mt-20">
-              Sign In <FiArrowRight />
+            <button type="submit" className="btn-premium w-100 mt-20" disabled={isSubmitting}>
+              {isSubmitting ? "Signing In..." : "Sign In"} <FiArrowRight />
             </button>
           </form>
 

@@ -2,15 +2,23 @@ const  {UserModel} = require("../model/UserModel");
 const  {ContactModel} = require("../model/ContactModel");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
-const JWT_SECRET = "12345@abcd12";
+const JWT_SECRET = process.env.JWT_SECRET || "12345@abcd12";
 const jwt = require("jsonwebtoken");
 const {OtpModel} = require("../model/OtpModel");
 const userController = {};
 
 userController.userRegistration = async (req, res) => {
     try {
-        const { name, email, password, stream, year,role } = req.body;
-        const existingUser = await UserModel.findOne({ email });
+        const { name, email, password, stream, year } = req.body;
+        if (!name || !email || !password || !stream || !year) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+        const existingUser = await UserModel.findOne({ email: normalizedEmail });
         if (existingUser) {
             return res.status(400).json({ message: "Email already exists" });
         }
@@ -18,12 +26,12 @@ userController.userRegistration = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = new UserModel({
-            name,
-      email,
-      password: hashedPassword,
-      stream,
-      year,
-      role
+            name: name.trim(),
+            email: normalizedEmail,
+            password: hashedPassword,
+            stream: stream.trim(),
+            year,
+            role: "user"
         });
 // console.log(user);
         await user.save();
@@ -39,13 +47,11 @@ userController.login = async (req,res)=>{
 
     try {
         const {email,password} = req.body;
-        console.log(req.body);
-        // const email="abc@gmail.com";
-        // const password="123";
-        const user = await UserModel.findOne({ email });
-        console.log(user);
-        // console.log("print")
-        // console.log(user);
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
+
+        const user = await UserModel.findOne({ email: email.trim().toLowerCase() });
         if (!user) {
             return res.status(400).json({ message: "Invalid email or password" });
           }

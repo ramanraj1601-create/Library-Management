@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, HashRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import './App.css';
 import Userlayout from "./layout/userlayout";
@@ -54,7 +54,7 @@ function App() {
         localStorage.removeItem("authToken");
       }
     }
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   return (
     <Suspense fallback={<Preloader />}>

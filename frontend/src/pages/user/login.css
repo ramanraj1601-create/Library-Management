@@ -1,11 +1,9 @@
-/* login.css inherits many styles from register.css via auth-page-container */
-
 .forgot-btn-v3 {
   background: transparent;
   color: var(--primary);
   font-weight: 500;
   font-size: 0.85rem;
-  margin-top: 10px;
+  margin-top: 12px;
   display: block;
   width: 100%;
   text-align: right;
@@ -18,5 +16,20 @@
 }
 
 .auth-options {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+}
+
+.auth-wrapper-login .premium-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-wrapper-login .btn-premium {
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .forgot-btn-v3 {
+    text-align: left;
+  }
 }

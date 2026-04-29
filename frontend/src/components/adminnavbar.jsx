@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FiBook, FiGrid, FiPlusCircle, FiList, FiCheckSquare, FiLogOut, FiMenu, FiX, FiShield, FiUser } from "react-icons/fi";
+import { FiArrowRight, FiBook, FiGrid, FiPlusCircle, FiList, FiCheckSquare, FiLogOut, FiMenu, FiX, FiShield, FiUser } from "react-icons/fi";
 import "./adminnavbar.css";
 
 export default function AdminNavbar() {

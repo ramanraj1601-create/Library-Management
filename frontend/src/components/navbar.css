@@ -90,6 +90,16 @@
   gap: 20px;
 }
 
+.auth-desktop {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.mobile-only {
+  display: none;
+}
+
 .search-trigger {
   background: transparent;
   font-size: 1.2rem;
@@ -119,20 +129,31 @@
 
 .profile-dropdown-container {
   position: relative;
+  padding: 6px 0;
 }
 
 .dropdown-panel {
   position: absolute;
-  top: 140%;
+  top: 100%;
   right: 0;
   width: 200px;
   padding: 10px;
-  border-radius: 16px;
+  border-radius: 8px;
   display: none;
   flex-direction: column;
   gap: 4px;
   box-shadow: var(--shadow-xl);
   animation: fadeInDown 0.3s ease;
+  z-index: 1200;
+}
+
+.dropdown-panel::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 0;
+  width: 100%;
+  height: 10px;
 }
 
 @keyframes fadeInDown {

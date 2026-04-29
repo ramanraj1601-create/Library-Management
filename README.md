@@ -1,183 +1,190 @@
-# 📚 Library Management System (MERN Stack)
+# Raman Library Management System
 
-![MERN Stack](https://img.shields.io/badge/MERN-Full%20Stack-blue)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://library-management-app-karan.vercel.app/)
+A full-stack library management application built with React, Vite, Express, MongoDB, and Cloudinary. The app supports student book requests, librarian approvals, admin/librarian management, JWT authentication, password reset OTPs, and issue/return tracking.
 
-A complete Library Management System built with MongoDB, Express.js, React.js, and Node.js. Features role-based access control with three user types (Admin, Librarian, Student), book management with Cloudinary image uploads, issue/return tracking, and automated fine calculations.
+## Features
 
-## 🌐 Live Demo
-Check out the live demo of the project:https://library-management-app-karan.vercel.app/
+- Student registration and login with JWT authentication
+- Role-based access for users, librarians, and admins
+- Book browsing, search, category filtering, and book details
+- Book issue requests and return requests
+- Librarian approval flow for issue and return requests
+- Admin/librarian book management with Cloudinary cover uploads
+- User profile with issued books, pending requests, due dates, and fines
+- Password reset flow with email OTP
+- Responsive React UI with route-based layouts
 
-**Test Credentials:**
-- Admin: admin@example.com / admin123
-- Librarian: librarian@example.com / lib123
-- Student: student@example.com / student123
+## Tech Stack
 
-## ✨ Key Features
+**Frontend**
+- React 19
+- Vite
+- React Router
+- Axios
+- React Hook Form
+- React Toastify
+- Framer Motion
+- React Icons
+- Bootstrap
 
-### 👨‍🎓 Student Features
-- ✅ User registration & login with JWT authentication
-- 🔍 Browse and search available books with images
-- 📥 Request book issuance
-- 📤 Submit return requests
-- ⏳ View due dates and pending fines
-- 📊 Personal dashboard with borrowing history
+**Backend**
+- Node.js
+- Express
+- MongoDB with Mongoose
+- JWT
+- bcryptjs
+- Multer and Cloudinary
+- Nodemailer
 
-### 📚 Librarian Features
-- ✔️ Approve/reject book issue requests
-- ✔️ Manage return requests
-- ➕ Add/Edit/Remove books with image uploads (Cloudinary)
-- 👀 View all issued books
-- 📊 Dashboard for Real-time Activity & Analytics
+## Project Structure
 
-### 👨‍💼 Admin Features
-- 👥 Manage all user accounts
-- 🛡️ Assign librarian privileges
-- 📊 System analytics dashboard
-
-
-
-## 🛠️ Technology Stack
-
-### **Frontend**
-![React](https://img.shields.io/badge/React-18.2-%2361DAFB?logo=react)
-![React Router](https://img.shields.io/badge/React_Router-v6.4-CA4245?logo=reactrouter)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2-%237952B3?logo=bootstrap)
-![Axios](https://img.shields.io/badge/Axios-1.3-%23631d76?logo=axios)
-![Cloudinary](https://img.shields.io/badge/Cloudinary-1.32-%80B5FF?logo=cloudinary)
-![React Toastify](https://img.shields.io/badge/Toastify-9.1-%23E57470?logo=react)
-
-- **Core**: React.js (v18.2) with Functional Components & Hooks
-- **Routing**: React Router v6
-- **UI Framework**: React Bootstrap v5.2 + Custom CSS
-- **HTTP Client**: Axios for API communication
-- **Image Management**: Cloudinary React SDK
-- **Notifications**: React Toastify
-- **Icons**: React Icons library
-- **Form Handling**: React Hook Form
-- **State Management**: Context API
-
-### **Backend**
-![Node.js](https://img.shields.io/badge/Node.js-18.x-%23339933?logo=nodedotjs)
-![Express](https://img.shields.io/badge/Express-4.18-%23000000?logo=express)
-![MongoDB](https://img.shields.io/badge/MongoDB-6.0-%2347A248?logo=mongodb)
-![JWT](https://img.shields.io/badge/JWT-Auth-%23000000?logo=jsonwebtokens)
-![Nodemailer](https://img.shields.io/badge/Nodemailer-6.9-%23F7DF1E?logo=nodemailer)
-
-- **Runtime**: Node.js v18.x
-- **Framework**: Express.js v4.18
-- **Database**: MongoDB Atlas (Cloud) with Mongoose ODM
-- **Authentication**: JWT with Bcrypt password hashing
-- **Email Service**: Nodemailer for OTP/password reset
-- **File Uploads**: Multer + Cloudinary Node SDK
-
-### **Development & Testing**
-![Thunder Client](https://img.shields.io/badge/Thunder_Client-1.12-%237A1FA2?logo=thunderclient)
-![Hopscotch](https://img.shields.io/badge/Hopscotch-Docs-%2334A853?logo=hopscotch)
-
-- **API Testing**: Thunder Client (VS Code extension)
-- **API Documentation**: Hopscotch
-- **Version Control**: Git + GitHub
-
-### **Deployment**
-![Render](https://img.shields.io/badge/Backend-Hosted_on_Render-%2300BFFF?logo=render)
-![Vercel](https://img.shields.io/badge/Frontend-Hosted_on_Vercel-%23000000?logo=vercel)
-![MongoDB Atlas](https://img.shields.io/badge/Database-MongoDB_Atlas-%2347A248?logo=mongodb)
-
-- **Frontend**: Vercel (Edge Network)
-- **Backend**: Render (Node.js Environment)
-- **Database**: MongoDB Atlas (Cloud)
-- **Media Storage**: Cloudinary CDN
-
-## 🛠️ Installation
-
-### 1. Clone the repository
-
-Clone the project repository to your local machine using the following command:
-
-```bash
-git clone https://github.com/KaranMehta1806/Library-Management.git
+```txt
+Library-Management/
+  backend/
+    controller/
+    middlewares/
+    model/
+    routes/
+    schemas/
+    utils/
+    index.js
+    package.json
+  frontend/
+    public/
+    src/
+      components/
+      layout/
+      pages/
+      utils/
+    package.json
+    vite.config.js
 ```
 
-### 2. Install Dependencies
-Navigate to the frontend and backend directories, and install dependencies:
+## Prerequisites
 
-#### Backend (API)
+- Node.js 18 or newer
+- npm
+- MongoDB Atlas connection string or local MongoDB URI
+- Cloudinary account for book cover uploads
+- Gmail app password or SMTP credentials for OTP email
 
-##### 1. Navigate to the api directory:
+## Environment Variables
+
+Create `backend/.env`:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_jwt_secret
+
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_email_app_password
+EMAIL=your_email@gmail.com
+
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
+
+CORS_ORIGINS=http://localhost:5173,https://your-frontend-domain.vercel.app
+```
+
+Create `frontend/.env` for local development:
+
+```env
+VITE_BACKEND_URL=http://localhost:5000
+```
+
+For production, set `VITE_BACKEND_URL` in your frontend hosting dashboard to your deployed backend API URL.
+
+## Local Setup
+
+Install backend dependencies:
+
 ```bash
 cd backend
-```
-
-##### 2. Install backend dependencies:
-```bash
 npm install
 ```
-#### Frontend (Client)
 
-##### 1. Navigate to the client directory:
+Install frontend dependencies:
+
 ```bash
 cd frontend
-```
-##### 2. Install frontend dependencies:
-```bash
 npm install
 ```
----
 
-### 3. Set Up Environment Variables
-Create a .env file in api and add the following environment variables:
-
-####  BACKEND .env file
-```bash
-EMAIL_USER=your_email_address
-EMAIL_PASS=your_email_password
-EMAIL_SERVICE=your_email_service
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-CLOUD_NAME=your_cloud_name
-CLOUD_API_KEY=your_cloud_api_key
-CLOUD_API_SECRET=your_cloud_api_secret
-
-```
-
-#### FRONTEND .env file
-```bash
-VITE_BACKEND_URL=https://your-backend-url.onrender.com
-
-```
----
-
-### 4. Start the Development Server
-Once the dependencies are installed and the .env file is set up, you can start the development server with the following command:
-
-#### Backend
-Start the backend server by navigating to the backend directory and running the following command:
+Start the backend:
 
 ```bash
-nodemon index.js
-```
-#### Frontend
-Start the frontend server by navigating to the frontend directory and running the following command:
-
-```bash
+cd backend
 npm run dev
 ```
----
 
+Start the frontend:
 
-## 📞 Contact
-Feel free to connect with me through the following platforms:
+```bash
+cd frontend
+npm run dev
+```
 
-[![LinkedIn](https://img.shields.io/badge/Karan_Mehta_-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mehtakaran18)
-[![GitHub](https://img.shields.io/badge/Karan_Mehta_-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KaranMehta1806)
-[![Email](https://img.shields.io/badge/mehtakaran8872@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mehtakaran8872@gmail.com)
+Default local URLs:
 
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
 
+## Available Scripts
 
+Backend:
 
+```bash
+npm start      # run production server with node
+npm run dev    # run development server with nodemon
+```
 
+Frontend:
 
+```bash
+npm run dev      # start Vite dev server
+npm run build    # create production build
+npm run preview  # preview production build locally
+npm run lint     # run ESLint
+```
 
+## Deployment Notes
 
+Frontend on Vercel:
 
+- Root directory: `frontend`
+- Build command: `npm run build`
+- Output directory: `dist`
+- Environment variable: `VITE_BACKEND_URL=https://your-backend-api-url`
+
+Backend on Render/Railway/Node hosting:
+
+- Root directory: `backend`
+- Start command: `npm start`
+- Environment variables: all values from `backend/.env`
+- Add your frontend domain to `CORS_ORIGINS`
+
+Important: do not use the frontend Vercel URL as `VITE_BACKEND_URL` unless your API is actually deployed there. It must point to the Express backend.
+
+## Git Ignore Policy
+
+The repository ignores:
+
+- `node_modules/` in root, frontend, and backend
+- `.env` files
+- frontend `dist/`
+- logs, caches, coverage, and editor files
+
+Keep real secrets out of Git. Commit only example env files such as `.env.example`.
+
+## Production Checklist
+
+- Backend `MONGO_URI` is valid
+- Backend `JWT_SECRET` is set to a strong secret
+- Backend Cloudinary credentials are set
+- Backend email credentials are set
+- Frontend `VITE_BACKEND_URL` points to the backend API
+- Backend `CORS_ORIGINS` includes the frontend production domain
+- `npm run build` passes in `frontend`
+- `npm run lint` passes in `frontend`
